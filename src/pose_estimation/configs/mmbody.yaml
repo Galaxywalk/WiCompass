@@ -1,0 +1,48 @@
+# MMBody Dataset Configuration
+dataset_name: MMBodyDataset
+dataset_path: datasets/mmBody  # Symlink to wicompass_workspace/mmbody
+model_name: PointTransformer
+random_seed: 42
+
+used_data_quantity: 1.0    # Fraction of data to use (for dataset-level subsampling)
+full_scaling_ratio: 1.0    # Fraction for training subset sampling
+
+# Data split
+train_dataset:
+  scenes: all
+
+val_dataset:
+  scenes: all
+
+# Data format
+data_format:
+  n_points: 200
+  merge_nframes: 3
+  radar_input_c: 5
+  num_joints: 22
+  normalized: true
+
+# Model configuration
+# Available scales: zepto, atto, femto, pico, nano, micro, tiny, small, base, large, xl
+model:
+  scale: base          # Model size preset
+  dropout: 0.1         # Dropout rate
+  nneighbor: 16        # K for k-NN attention in backbone
+
+# Training
+loader:
+  batch_size: 32
+  epochs: 25
+
+trainer:
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_norm: 1.0
+
+# Logging
+recorder:
+  log_dir: logs/pose_estimation/mmbody
+  checkpoint_root_dir: logs/pose_estimation/mmbody/checkpoints
+  log_interval: 10
+  test_freq: 1
+  exp_name: mmbody_base

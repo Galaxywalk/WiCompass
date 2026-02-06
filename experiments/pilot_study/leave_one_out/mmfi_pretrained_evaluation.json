@@ -1,0 +1,224 @@
+{
+  "actions": [
+    {
+      "mpjpe_mean": 41.260331414439264,
+      "mpjpe_std": 17.90174170610566,
+      "p_mpjpe_mean": 32.48016351727323,
+      "p_mpjpe_std": 15.477890636964828,
+      "num_samples": 2970,
+      "action": "A01"
+    },
+    {
+      "mpjpe_mean": 32.70208692736296,
+      "mpjpe_std": 9.135808760644366,
+      "p_mpjpe_mean": 26.993427873096785,
+      "p_mpjpe_std": 9.538319895180493,
+      "num_samples": 2970,
+      "action": "A02"
+    },
+    {
+      "mpjpe_mean": 39.009312076199336,
+      "mpjpe_std": 13.539836145006031,
+      "p_mpjpe_mean": 34.91531665490231,
+      "p_mpjpe_std": 17.027729813240406,
+      "num_samples": 2970,
+      "action": "A03"
+    },
+    {
+      "mpjpe_mean": 43.63982856135677,
+      "mpjpe_std": 13.706715428782342,
+      "p_mpjpe_mean": 35.124427919285466,
+      "p_mpjpe_std": 11.608156151216209,
+      "num_samples": 2970,
+      "action": "A04"
+    },
+    {
+      "mpjpe_mean": 41.90866163859664,
+      "mpjpe_std": 12.377388283248168,
+      "p_mpjpe_mean": 32.07553726862426,
+      "p_mpjpe_std": 10.827303118256934,
+      "num_samples": 2970,
+      "action": "A05"
+    },
+    {
+      "mpjpe_mean": 33.362127690315745,
+      "mpjpe_std": 11.463851061424986,
+      "p_mpjpe_mean": 31.175276922745635,
+      "p_mpjpe_std": 14.312993101568756,
+      "num_samples": 2970,
+      "action": "A06"
+    },
+    {
+      "mpjpe_mean": 37.40672022229694,
+      "mpjpe_std": 17.42643811770635,
+      "p_mpjpe_mean": 31.96295896193847,
+      "p_mpjpe_std": 13.632589079031211,
+      "num_samples": 2970,
+      "action": "A07"
+    },
+    {
+      "mpjpe_mean": 42.82850763926703,
+      "mpjpe_std": 18.184928506438965,
+      "p_mpjpe_mean": 34.712555055954944,
+      "p_mpjpe_std": 16.30338555137401,
+      "num_samples": 2970,
+      "action": "A08"
+    },
+    {
+      "mpjpe_mean": 48.24803929888841,
+      "mpjpe_std": 23.06253528401526,
+      "p_mpjpe_mean": 38.05369753735485,
+      "p_mpjpe_std": 20.486972891340198,
+      "num_samples": 2970,
+      "action": "A09"
+    },
+    {
+      "mpjpe_mean": 43.33874358347169,
+      "mpjpe_std": 21.319790975969596,
+      "p_mpjpe_mean": 34.63038599795916,
+      "p_mpjpe_std": 18.931753445925867,
+      "num_samples": 2970,
+      "action": "A10"
+    },
+    {
+      "mpjpe_mean": 37.67946885635305,
+      "mpjpe_std": 14.277136221700264,
+      "p_mpjpe_mean": 32.36612682497311,
+      "p_mpjpe_std": 13.183414249070504,
+      "num_samples": 2970,
+      "action": "A11"
+    },
+    {
+      "mpjpe_mean": 51.72697432646496,
+      "mpjpe_std": 32.56198138532378,
+      "p_mpjpe_mean": 36.85606361746236,
+      "p_mpjpe_std": 22.66455884577547,
+      "num_samples": 2970,
+      "action": "A12"
+    },
+    {
+      "mpjpe_mean": 33.02803311641218,
+      "mpjpe_std": 13.090275111728479,
+      "p_mpjpe_mean": 26.970681558153043,
+      "p_mpjpe_std": 13.507193392002835,
+      "num_samples": 2970,
+      "action": "A13"
+    },
+    {
+      "mpjpe_mean": 37.25828329314437,
+      "mpjpe_std": 19.506287331512056,
+      "p_mpjpe_mean": 31.055084304877806,
+      "p_mpjpe_std": 20.264483466225197,
+      "num_samples": 2970,
+      "action": "A14"
+    },
+    {
+      "mpjpe_mean": 42.63889603661718,
+      "mpjpe_std": 17.734531289726522,
+      "p_mpjpe_mean": 32.845404418028565,
+      "p_mpjpe_std": 17.348217727768287,
+      "num_samples": 2970,
+      "action": "A15"
+    },
+    {
+      "mpjpe_mean": 42.11175992790145,
+      "mpjpe_std": 15.507349599639296,
+      "p_mpjpe_mean": 31.264296863604375,
+      "p_mpjpe_std": 13.320409038617553,
+      "num_samples": 2970,
+      "action": "A16"
+    },
+    {
+      "mpjpe_mean": 41.10520957006449,
+      "mpjpe_std": 23.542026684645887,
+      "p_mpjpe_mean": 34.562081506519704,
+      "p_mpjpe_std": 23.274727313173674,
+      "num_samples": 2970,
+      "action": "A17"
+    },
+    {
+      "mpjpe_mean": 55.92407184850538,
+      "mpjpe_std": 38.870047822547775,
+      "p_mpjpe_mean": 50.7527819586924,
+      "p_mpjpe_std": 42.330581802472075,
+      "num_samples": 2970,
+      "action": "A18"
+    },
+    {
+      "mpjpe_mean": 56.46705580467628,
+      "mpjpe_std": 23.304556800717894,
+      "p_mpjpe_mean": 43.08511379617031,
+      "p_mpjpe_std": 16.99127737434663,
+      "num_samples": 2970,
+      "action": "A19"
+    },
+    {
+      "mpjpe_mean": 46.17757392100212,
+      "mpjpe_std": 11.058764913368359,
+      "p_mpjpe_mean": 37.44842176284854,
+      "p_mpjpe_std": 10.355935852350846,
+      "num_samples": 2970,
+      "action": "A20"
+    },
+    {
+      "mpjpe_mean": 46.48564775232916,
+      "mpjpe_std": 12.575948551029835,
+      "p_mpjpe_mean": 37.53340086626886,
+      "p_mpjpe_std": 12.153086855743599,
+      "num_samples": 2970,
+      "action": "A21"
+    },
+    {
+      "mpjpe_mean": 45.54483681064262,
+      "mpjpe_std": 14.761782544992837,
+      "p_mpjpe_mean": 33.420473498351846,
+      "p_mpjpe_std": 9.445773427219908,
+      "num_samples": 2970,
+      "action": "A22"
+    },
+    {
+      "mpjpe_mean": 45.178007219701705,
+      "mpjpe_std": 11.50852675890768,
+      "p_mpjpe_mean": 33.93706413744776,
+      "p_mpjpe_std": 7.552452382901095,
+      "num_samples": 2970,
+      "action": "A23"
+    },
+    {
+      "mpjpe_mean": 46.14502100606358,
+      "mpjpe_std": 16.685803225956334,
+      "p_mpjpe_mean": 36.741723581797345,
+      "p_mpjpe_std": 13.29858035889452,
+      "num_samples": 2970,
+      "action": "A24"
+    },
+    {
+      "mpjpe_mean": 48.67021726751668,
+      "mpjpe_std": 22.601991955762546,
+      "p_mpjpe_mean": 35.35211341649996,
+      "p_mpjpe_std": 13.201317064119745,
+      "num_samples": 2970,
+      "action": "A25"
+    },
+    {
+      "mpjpe_mean": 41.01375538341525,
+      "mpjpe_std": 14.60515030879684,
+      "p_mpjpe_mean": 39.136466036177545,
+      "p_mpjpe_std": 17.063268445733794,
+      "num_samples": 2970,
+      "action": "A26"
+    },
+    {
+      "mpjpe_mean": 37.25660062968881,
+      "mpjpe_std": 12.398181679861155,
+      "p_mpjpe_mean": 26.316651447302966,
+      "p_mpjpe_std": 8.040540994579572,
+      "num_samples": 2970,
+      "action": "A27"
+    }
+  ],
+  "model_info": {
+    "checkpoint_path": "logs/pose_estimation/mmfi/leave_one_out/checkpoints/PointTransformer-baseline_all_actions_repeat00-2025-12-20_14-55-53/best_model.pth",
+    "config_path": "experiments/pilot_study/leave_one_out/mmfi_leave_one_out_config.yaml"
+  }
+}

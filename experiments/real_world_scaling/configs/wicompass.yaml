@@ -1,0 +1,55 @@
+# Real-world dataset configuration: WiCompass
+# Train on A_wicompass + B_wicompass, validate on A_dance_val + B_dance_val
+
+dataset_name: RealWorldDataset
+data_root: datasets/real_world
+train_folders:
+  - A_wicompass
+  - C_wicompass
+val_folders:
+  - A_dance_val
+  - C_dance_val
+
+# Coordinate system transformation (Y-down to Z-up with rotation)
+coord_transform: y_to_z_rotate
+
+model_name: PointTransformer
+random_seed: 42
+used_data_quantity: 1.0
+max_train_samples: 8000
+max_val_samples: 8000
+
+# Data format
+data_format:
+  n_points: 200
+  merge_nframes: 3
+  radar_input_c: 3
+  num_joints: 22
+  normalized: true
+
+# Model configuration
+model:
+  scale: base
+  dropout: 0.1
+  nneighbor: 16
+
+# Training
+loader:
+  batch_size: 32
+  epochs: 50
+
+trainer:
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_norm: 1.0
+
+# Logging
+recorder:
+  log_dir: logs/pose_estimation/real_world
+  checkpoint_root_dir: logs/pose_estimation/real_world/checkpoints
+  log_interval: 10
+  test_freq: 1
+  exp_name: real_world_wicompass_base
+  log_epoch_history: true
+  separate_best_metrics: true
+

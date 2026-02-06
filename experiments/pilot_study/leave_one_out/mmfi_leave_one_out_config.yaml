@@ -1,0 +1,54 @@
+# MMFi Leave-One-Out Configuration
+# Base config for action generalization experiments
+# Training will exclude one action, testing will be on that excluded action
+
+dataset_name: MMFiDataset
+dataset_path: datasets/MMFi  # Symlink to wicompass_workspace/mmfi
+model_name: PointTransformer
+random_seed: 42
+
+used_data_quantity: 1.0
+full_scaling_ratio: 1.0
+
+# Default: train on all scenes and actions (will be overridden per job)
+train_dataset:
+  scenes: all
+  subjects: all
+  actions: all  # Will be overridden to exclude one action
+
+val_dataset:
+  scenes: all
+  subjects: all
+  actions: all  # Will be overridden to only the excluded action
+
+# Data format
+data_format:
+  n_points: 200
+  merge_nframes: 3
+  radar_input_c: 5
+  num_joints: 17
+  normalized: true
+
+# Model configuration
+model:
+  scale: base
+  dropout: 0.1
+  nneighbor: 16
+
+# Training
+loader:
+  batch_size: 16
+  epochs: 25
+
+trainer:
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_norm: 1.0
+
+# Logging
+recorder:
+  log_dir: logs/pose_estimation/mmfi/leave_one_out
+  checkpoint_root_dir: logs/pose_estimation/mmfi/leave_one_out/checkpoints
+  log_interval: 10
+  test_freq: 1
+  exp_name: leave_one_out_evaluation

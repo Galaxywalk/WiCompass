@@ -1,0 +1,52 @@
+# MMFi Dataset Configuration
+dataset_name: MMFiDataset
+dataset_path: datasets/MMFi  # Symlink to wicompass_workspace/mmfi
+model_name: PointTransformer
+random_seed: 42
+
+used_data_quantity: 1.0    # Fraction of data to use (for dataset-level subsampling)
+full_scaling_ratio: 1.0    # Fraction for training subset sampling
+
+# Data split (E01-E03 for train, E04 for test)
+train_dataset:
+  scenes: ['E01', 'E02', 'E03']
+  subjects: all
+  actions: all
+
+val_dataset:
+  scenes: ['E04']
+  subjects: all
+  actions: all
+
+# Data format
+data_format:
+  n_points: 200
+  merge_nframes: 3
+  radar_input_c: 5
+  num_joints: 17
+  normalized: true
+
+# Model configuration
+# Available scales: zepto, atto, femto, pico, nano, micro, tiny, small, base, large, xl
+model:
+  scale: base          # Model size preset
+  dropout: 0.1         # Dropout rate
+  nneighbor: 16        # K for k-NN attention in backbone
+
+# Training
+loader:
+  batch_size: 16
+  epochs: 25
+
+trainer:
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_norm: 1.0
+
+# Logging
+recorder:
+  log_dir: logs/pose_estimation/mmfi
+  checkpoint_root_dir: logs/pose_estimation/mmfi/checkpoints
+  log_interval: 10
+  test_freq: 1
+  exp_name: mmfi_base

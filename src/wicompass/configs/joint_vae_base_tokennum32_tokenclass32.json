@@ -1,0 +1,70 @@
+{
+  "seed": 42,
+  "data": {
+    "preproc_root": "datasets/AMASS_preproc",
+    "train_ratio": 0.9,
+    "supported_datasets": [
+      "HuMMan",
+      "KIT",
+      "BMLmovi",
+      "BMLrub",
+      "CMU",
+      "MOYO",
+      "GRAB",
+      "MoSh",
+      "PosePrior",
+      "WEIZMANN",
+      "MMBody"
+    ],
+    "datasets": [
+      "KIT",
+      "BMLmovi",
+      "BMLrub",
+      "CMU",
+      "MOYO",
+      "GRAB",
+      "MoSh",
+      "PosePrior",
+      "WEIZMANN"
+    ]
+  },
+  "model": {
+    "num_joints": 22,
+    "input_dim": 3,
+    "enc_num_blocks": 4,
+    "enc_hidden_dim": 256,
+    "enc_token_inter_dim": 512,
+    "enc_hidden_inter_dim": 1024,
+    "enc_dropout": 0.2,
+    "token_num": 32,
+    "token_class_num": 32,
+    "token_dim": 256,
+    "ema_decay": 0.99,
+    "dec_num_blocks": 4,
+    "dec_hidden_dim": 256,
+    "dec_token_inter_dim": 512,
+    "dec_hidden_inter_dim": 1024,
+    "dec_dropout": 0.1,
+    "drop_rate": 0.1
+  },
+  "loss": {
+    "recon_weight": 1.0,
+    "vq_weight": 1.0,
+    "commitment_weight": 0.25,
+    "recon_loss_type": "mse"
+  },
+  "training": {
+    "epochs": 15,
+    "batch_size": 256,
+    "save_interval": 5,
+    "optimizer": {
+      "lr": 0.001,
+      "weight_decay": 0.01,
+      "betas": [0.9, 0.999]
+    },
+    "scheduler": {
+      "T_max": 15,
+      "eta_min": 1e-05
+    }
+  }
+}

@@ -1,0 +1,44 @@
+# Simulation MMBody Dataset Configuration
+# Training: dataset_path (e.g., k10_q85, k12_q95)
+# Validation: always uses validation_dataset_path (benchmark)
+
+dataset_name: SimulationMMBody
+dataset_path: datasets/simulation_datasets/rfgen_data/k10_q85
+validation_dataset_path: datasets/simulation_datasets/rfgen_data/benchmark
+model_name: PointTransformer
+random_seed: 42
+
+used_data_quantity: 1.0    # Fraction of data to use
+
+# Data format
+data_format:
+  n_points: 200
+  merge_nframes: 3
+  radar_input_c: 3         # Only xyz for simulation data
+  num_joints: 22
+  normalized: true
+
+# Model configuration
+model:
+  scale: base
+  dropout: 0.1
+  nneighbor: 16
+
+# Training
+loader:
+  batch_size: 32
+  epochs: 25
+
+trainer:
+  lr: 0.0001
+  weight_decay: 0.01
+  grad_norm: 1.0
+
+# Logging
+recorder:
+  log_dir: logs/pose_estimation/simulation
+  checkpoint_root_dir: logs/pose_estimation/simulation/checkpoints
+  log_interval: 10
+  test_freq: 1
+  exp_name: sim_k10_q85_base
+

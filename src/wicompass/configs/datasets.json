@@ -1,0 +1,169 @@
+{
+  "amass_datasets": [
+    {
+      "name": "HuMMan",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/HuMMan"
+    },
+    {
+      "name": "KIT",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/KIT"
+    },
+    {
+      "name": "BMLmovi",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/BMLmovi"
+    },
+    {
+      "name": "BMLrub",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/BMLrub"
+    },
+    {
+      "name": "CMU",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/CMU"
+    },
+    {
+      "name": "GRAB",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/GRAB"
+    },
+    {
+      "name": "MoSh",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/MoSh"
+    },
+    {
+      "name": "PosePrior",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/PosePrior"
+    },
+    {
+      "name": "WEIZMANN",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/WEIZMANN"
+    },
+    {
+      "name": "MOYO",
+      "type": "amass",
+      "path": "datasets/AMASS_preproc/MOYO"
+    }
+  ],
+  "mmbody_datasets": [
+    {
+      "name": "MMBody",
+      "type": "mmbody",
+      "path": "datasets/mmBody"
+    }
+  ],
+  "mmfi_datasets": [
+    {
+      "name": "MMFi",
+      "type": "mmfi",
+      "path": "datasets/MMFi"
+    }
+  ],
+  "real_world_datasets": [
+    {
+      "name": "A_dance_val",
+      "type": "real-world",
+      "path": "datasets/real_world/A_dance_val",
+      "params": {
+        "coord_transform": "y_to_z_rotate"
+      }
+    }
+  ],
+  "wicompass_datasets": [
+    {
+      "name": "k4_q85",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k4_q85",
+      "params": {}
+    },
+    {
+      "name": "k4_q9",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k4_q9",
+      "params": {}
+    },
+    {
+      "name": "k4_q95",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k4_q95",
+      "params": {}
+    },
+    {
+      "name": "k8_q85",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k8_q85",
+      "params": {}
+    },
+    {
+      "name": "k8_q9",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k8_q9",
+      "params": {}
+    },
+    {
+      "name": "k8_q95",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k8_q95",
+      "params": {}
+    },
+    {
+      "name": "k10_q85",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k10_q85",
+      "params": {}
+    },
+    {
+      "name": "k10_q9",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k10_q9",
+      "params": {}
+    },
+    {
+      "name": "k10_q95",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k10_q95",
+      "params": {}
+    },
+    {
+      "name": "k12_q85",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k12_q85",
+      "params": {}
+    },
+    {
+      "name": "k12_q9",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k12_q9",
+      "params": {}
+    },
+    {
+      "name": "k12_q95",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/k12_q95",
+      "params": {}
+    },
+    {
+      "name": "mmbody_simulation",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/mmbody_simulation",
+      "params": {}
+    },
+    {
+      "name": "benchmark",
+      "type": "wicompass",
+      "path": "datasets/simulation_datasets/rfgen_data/benchmark",
+      "params": {}
+    }
+  ],
+  "default_paths": {
+    "amass_root": "datasets/AMASS_preproc",
+    "mmbody_root": "datasets/mmBody",
+    "mmfi_root": "datasets/MMFi"
+  }
+}

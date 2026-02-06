@@ -1,0 +1,4 @@
+[submodule "submodules/Pointnet2_PyTorch"]
+	path = submodules/Pointnet2_PyTorch
+	url = https://github.com/erikwijmans/Pointnet2_PyTorch.git
+	ignore = dirty
