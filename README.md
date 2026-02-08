@@ -422,3 +422,16 @@ This paper uses the AMASS motion capture dataset and mmWave human pose estimatio
 | AMASS | https://amass.is.tue.mpg.de/ | 
 | MMFi | https://github.com/ybhbingo/MMFi_dataset | 
 | mmBody | https://github.com/Chen3110/mmBody |
+
+## Citation
+
+If you find this work useful, please consider citing our paper:
+
+```bibtex
+@inproceedings{liang2026wicompass,
+  title={WiCompass: Oracle-driven Data Scaling for mmWave Human Pose Estimation},
+  author={Liang, Bo and Gong, Chen and Wang, Haobo and Liu, Qirui and Zhou, Rungui and Shao, Fengzhi and Wang, Yubo and Zhou, Kaichen and Gao, Wei and Cui, Guolong and Xu, Chenren},
+  booktitle={Proceedings of the 32nd Annual International Conference on Mobile Computing and Networking},
+  year={2026}
+}
+```
