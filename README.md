@@ -156,8 +156,9 @@ python tools/setup_workspace.py --workspace ~/wicompass_workspace
 
 #### Manual Download
 
-You can also download the `.tar.gz` archives directly from the Google Drive web interface:
+You can also download the `.tar.gz` archives directly from the Google Drive web interface or Baidu Netdisk. The two sources contain the same workspace archives.
 - Google Drive link: https://drive.google.com/drive/folders/1GDgcJ-6fq4TW-AmuZPPa-i_UvshAEg79?usp=sharing
+- Baidu Netdisk link for users in mainland China: https://pan.baidu.com/s/1cy5-yM54qu6ecGV0US3QBQ?pwd=xqry
 - Download the archives you need, extract them into one directory, then run:
 ```bash
 python tools/setup_workspace.py --workspace /path/to/wicompass_workspace
@@ -186,6 +187,16 @@ This section introduces how to reproduce all the results in the paper, including
 3. Training Models. All the datasets and training scripts are provided. You can even re-train the models and reproduce all the results. We mark all related parts as [optional].
 
 We suggest you to follow the order to reproduce our results.
+
+
+Before running the Jupyter notebooks, make sure the notebook kernel uses this repository's `wicompass` environment. Register it once after installation:
+
+```bash
+python -m ipykernel install --user --name wicompass --display-name WiCompass
+```
+
+Then select the `WiCompass` kernel in Jupyter, or pass `--ExecutePreprocessor.kernel_name=wicompass` when using `jupyter nbconvert --execute`. Using the system/default `python3` kernel can miss dependencies such as `h5py` even when the `wicompass` conda environment is correctly installed.
+
 
 | Figure | Section |
 |--------|---------|
@@ -385,10 +396,10 @@ We collected real-world data and they are stored in `datasets/real_world`. The r
 
 ```bash
 # encode into tokens
-python src/wicompass/evaluation/encode_datasets_into_tokens.py --dataset A_dance_val --dataset-type real-world
+python src/wicompass/evaluation/encode_datasets_into_tokens.py --dataset A_dance_train --dataset-type real-world
 
 # sample from tokens
-python src/wicompass/token_space_sampling/pps_sampling.py --A-path logs/wicompass/encoded_tokens/A_dance_val_tokens.h5 --budget 200 --seed 123 --out-dir logs/wicompass/sampled_tokens/real_world_target/ --k 4
+python src/wicompass/token_space_sampling/pps_sampling.py --A-path logs/wicompass/encoded_tokens/A_dance_train_tokens.h5 --budget 200 --seed 123 --out-dir logs/wicompass/sampled_tokens/real_world_target/ --k 4
 
 # decode tokens to poses
 python src/wicompass/token_space_sampling/convert_sampled_tokens_to_poses.py --tokens-npy logs/wicompass/sampled_tokens/real_world_target/capped_pps_selected_vectors.npy --output-dir logs/wicompass/sampled_poses/real_world_target --model logs/vqvae/vqvae_tokennum16_tokenclass64/best_model.pth --config src/wicompass/configs/joint_vae_base_tokennum16_tokenclass64.json

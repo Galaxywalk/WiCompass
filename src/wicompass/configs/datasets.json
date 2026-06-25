@@ -67,6 +67,14 @@
   ],
   "real_world_datasets": [
     {
+      "name": "A_dance_train",
+      "type": "real-world",
+      "path": "datasets/real_world/A_dance_train",
+      "params": {
+        "coord_transform": "y_to_z_rotate"
+      }
+    },
+    {
       "name": "A_dance_val",
       "type": "real-world",
       "path": "datasets/real_world/A_dance_val",
