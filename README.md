@@ -6,10 +6,6 @@ This repo is the official implementation of the MobiCom '26 paper "WiCompass: Or
 
 https://github.com/user-attachments/assets/125de2d4-33f8-4eeb-9259-e6900838e27c
 
-<p align="center">
-  <a href="assets/wicompass-quick-video.mp4"><strong>Download the 87-second WiCompass overview (MP4)</strong></a>
-</p>
-
 ## Project Introduction
 
 WiCompass is a data collection framework that leverages VQ-VAE to learn a compact latent space of human poses from large-scale motion capture datasets (AMASS). It then uses a coverage-aware sampling algorithm to select diverse and representative poses for mmWave data collection, significantly improving data efficiency for human pose estimation models. This repo includes:
