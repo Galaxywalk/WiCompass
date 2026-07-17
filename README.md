@@ -2,6 +2,14 @@
 
 This repo is the official implementation of the MobiCom '26 paper "WiCompass: Oracle-driven Data Scaling for mmWave Human Pose Estimation", which proposes a highly efficient data collection framework for mmWave human pose estimation.
 
+## Quick Video
+
+[![Watch the 87-second WiCompass overview](assets/wicompass-quick-video-cover.png)](assets/wicompass-quick-video.mp4)
+
+<p align="center">
+  <a href="assets/wicompass-quick-video.mp4"><strong>▶ Watch the 87-second WiCompass overview</strong></a>
+</p>
+
 ## Project Introduction
 
 WiCompass is a data collection framework that leverages VQ-VAE to learn a compact latent space of human poses from large-scale motion capture datasets (AMASS). It then uses a coverage-aware sampling algorithm to select diverse and representative poses for mmWave data collection, significantly improving data efficiency for human pose estimation models. This repo includes:
@@ -156,7 +164,9 @@ python tools/setup_workspace.py --workspace ~/wicompass_workspace
 
 #### Manual Download
 
-You can also download the `.tar.gz` archives directly from the Google Drive web interface or Baidu Netdisk. The two sources contain the same workspace archives.
+You can also download the `.tar.gz` archives directly from Zenodo, Google Drive, or Baidu Netdisk. The workspace archives are preserved on Zenodo, and all three sources contain the same files.
+
+- Zenodo link: https://zenodo.org/records/20907837
 - Google Drive link: https://drive.google.com/drive/folders/1GDgcJ-6fq4TW-AmuZPPa-i_UvshAEg79?usp=sharing
 - Baidu Netdisk link for users in mainland China: https://pan.baidu.com/s/1cy5-yM54qu6ecGV0US3QBQ?pwd=xqry
 - Download the archives you need, extract them into one directory, then run:
