@@ -4,10 +4,10 @@ This repo is the official implementation of the MobiCom '26 paper "WiCompass: Or
 
 ## Quick Video
 
-[![Watch the 87-second WiCompass overview](assets/wicompass-quick-video-cover.png)](assets/wicompass-quick-video.mp4)
+https://github.com/user-attachments/assets/125de2d4-33f8-4eeb-9259-e6900838e27c
 
 <p align="center">
-  <a href="assets/wicompass-quick-video.mp4"><strong>▶ Watch the 87-second WiCompass overview</strong></a>
+  <a href="assets/wicompass-quick-video.mp4"><strong>Download the 87-second WiCompass overview (MP4)</strong></a>
 </p>
 
 ## Project Introduction
