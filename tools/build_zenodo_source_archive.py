@@ -45,7 +45,9 @@ def run_git(*args: str, cwd: Path = REPOSITORY_ROOT) -> str:
     if result.returncode:
         message = result.stderr.strip() or result.stdout.strip()
         raise RuntimeError(f"git {' '.join(args)} failed: {message}")
-    return result.stdout.strip()
+    # Keep a possible leading space in `git submodule status` output: Git uses
+    # it to denote an initialized submodule at the recorded revision.
+    return result.stdout.rstrip()
 
 
 def git_archive(commit: str, prefix: str, cwd: Path) -> bytes:
