@@ -187,17 +187,6 @@ You can also download the `.tar.gz` archives directly from Zenodo, Google Drive,
 python tools/setup_workspace.py --workspace /path/to/wicompass_workspace
 ```
 
-#### Maintainers: Publish a Source Snapshot to Zenodo
-
-To keep the permanent archive self-contained, publish the source code as one additional Zenodo file whenever a release is updated. After committing the release and initializing submodules, build the archive from a clean checkout:
-
-```bash
-git submodule update --init --recursive
-python tools/build_zenodo_source_archive.py
-```
-
-This creates `dist/WiCompass-source-<commit>.tar.gz`. Upload that single file to a **new version** of the Zenodo record; it includes the exact repository commit, all submodule sources, and `SOURCE_ARCHIVE_MANIFEST.json`. Keep the existing dataset/model workspace archives unchanged.
-
 This creates the following structure:
 
 ```bash
