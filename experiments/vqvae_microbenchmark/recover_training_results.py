@@ -8,7 +8,7 @@ training_results.json files compatible with the format used by train_vqvae.py.
 
 Usage:
     conda activate wicompass
-    python src/experiments/recover_training_results.py
+    python experiments/vqvae_microbenchmark/recover_training_results.py
 """
 
 import json
@@ -267,15 +267,23 @@ def main():
     
     # Find vqvae logs directory
     if args.work_dirs:
-        vqvae_logs_path = Path(args.work_dirs)
+        vqvae_logs_path = Path(args.work_dirs).expanduser()
     else:
-        script_dir = Path(__file__).parent
-        project_root = script_dir.parent.parent.parent
+        # This file lives in <repo>/experiments/vqvae_microbenchmark/.
+        # Going up three parents points outside the repository and makes the
+        # default resolve to <parent-of-repo>/logs/vqvae.
+        script_dir = Path(__file__).resolve().parent
+        project_root = script_dir.parent.parent
         vqvae_logs_path = project_root / 'logs' / 'vqvae'
+
+    vqvae_logs_path = vqvae_logs_path.resolve()
     
     if not vqvae_logs_path.exists():
-        print(f"Error: vqvae logs not found at {vqvae_logs_path}")
-        return
+        raise SystemExit(
+            f"Error: VQ-VAE logs not found at {vqvae_logs_path}.\n"
+            "Run tools/setup_workspace.py after extracting the "
+            "wicompass_logs workspace component, or pass --work-dirs explicitly."
+        )
     
     print(f"Scanning: {vqvae_logs_path}")
     if args.force:
@@ -287,6 +295,11 @@ def main():
         d for d in vqvae_logs_path.iterdir()
         if d.is_dir() and d.name.startswith('vqvae_')
     ])
+
+    if not model_dirs:
+        raise SystemExit(
+            f"Error: no vqvae_* experiment directories found in {vqvae_logs_path}."
+        )
     
     recovered = 0
     skipped = 0

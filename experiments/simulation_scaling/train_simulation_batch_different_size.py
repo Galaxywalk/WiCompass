@@ -17,6 +17,9 @@ Usage:
     
     # Train with custom model scale
     python train_simulation_batch_different_size.py --scale tiny
+
+    # Attach to an existing Ray cluster (the default starts a local one)
+    python train_simulation_batch_different_size.py --ray-address auto
 """
 
 import os
@@ -51,10 +54,26 @@ def get_available_train_sets():
     return sorted(train_sets)
 
 
-def init_ray():
-    """Initialize Ray cluster."""
-    ray.init(ignore_reinit_error=True, address="auto")
-    print("Ray cluster resources:", ray.cluster_resources())
+def init_ray(ray_address: str | None = None):
+    """Start a local Ray runtime, or attach to an explicitly requested cluster."""
+    init_kwargs = {'ignore_reinit_error': True}
+    if ray_address:
+        init_kwargs['address'] = ray_address
+        print(f"Connecting to Ray cluster at: {ray_address}")
+    else:
+        print("Starting a local Ray runtime.")
+
+    ray.init(**init_kwargs)
+    resources = ray.cluster_resources()
+    print("Ray cluster resources:", resources)
+
+    if resources.get('GPU', 0) < 1:
+        ray.shutdown()
+        raise RuntimeError(
+            "Ray did not detect a GPU, but each training job requires one GPU. "
+            "Install a CUDA-enabled Ray/PyTorch environment, or connect to a "
+            "GPU Ray cluster with --ray-address."
+        )
 
 
 @ray.remote(num_gpus=1, max_retries=2)
@@ -139,6 +158,8 @@ def main():
                         help='Model scale (e.g., tiny, small, base, large)')
     parser.add_argument('--list', action='store_true',
                         help='List available training sets and exit')
+    parser.add_argument('--ray-address', type=str, default=None,
+                        help='Optional Ray cluster address; default starts a local Ray runtime')
     args = parser.parse_args()
     
     # Get available training sets
@@ -174,7 +195,7 @@ def main():
     print(f"Total jobs: {len(train_sets) * len(sizes)}")
     
     # Initialize Ray
-    init_ray()
+    init_ray(args.ray_address)
     
     # Load base config
     with open(CONFIG_PATH) as f:
@@ -199,7 +220,10 @@ def main():
     print(f"Submitted {len(futures)} jobs\n")
     
     # Wait for completion
-    completed_jobs = ray.get(futures)
+    try:
+        completed_jobs = ray.get(futures)
+    finally:
+        ray.shutdown()
     
     print("\n🎉 All jobs completed!")
     print("Completed jobs:")
@@ -209,4 +233,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -42,8 +42,13 @@ SYMLINK_MAPPINGS = [
 ]
 
 
-def setup_symlink(repo_root: Path, workspace: Path, link_rel: str, target_subdir: str, dry_run: bool) -> bool:
-    """Create a symbolic link."""
+def setup_symlink(repo_root: Path, workspace: Path, link_rel: str, target_subdir: str,
+                  dry_run: bool) -> bool | None:
+    """Create a symbolic link.
+
+    Returns ``None`` when the optional workspace component is not present and
+    ``False`` only for a real setup error.
+    """
     link_path = repo_root / link_rel
     target_path = workspace / target_subdir
 
@@ -58,8 +63,8 @@ def setup_symlink(repo_root: Path, workspace: Path, link_rel: str, target_subdir
 
     # Check if target exists in workspace
     if not target_path.exists():
-        print(f"  ⚠️  Skip: {link_rel} (target not found: {target_path})")
-        return False
+        print(f"  ⏭️  Skip: {link_rel} (optional component not found: {target_path})")
+        return None
 
     # Remove existing link or empty directory
     if link_path.is_symlink():
@@ -109,7 +114,7 @@ def verify_workspace(workspace: Path) -> bool:
             missing.append(d)
 
     if missing:
-        print(f"⚠️  Warning: Some directories missing in workspace:")
+        print(f"ℹ️  Optional workspace components not present (their links will be skipped):")
         for d in missing:
             print(f"   - {d}")
         return False
@@ -174,18 +179,24 @@ Examples:
     # Create symlinks
     print("Setting up symbolic links...")
     success = 0
-    total = len(SYMLINK_MAPPINGS)
+    skipped = 0
+    errors = 0
 
     for link_rel, target_subdir in SYMLINK_MAPPINGS:
-        if setup_symlink(repo_root, args.workspace, link_rel, target_subdir, args.dry_run):
+        result = setup_symlink(repo_root, args.workspace, link_rel, target_subdir, args.dry_run)
+        if result is True:
             success += 1
+        elif result is None:
+            skipped += 1
+        else:
+            errors += 1
 
     print()
     print("=" * 60)
-    print(f"Done: {success}/{total} links created")
+    print(f"Done: {success} links created or updated, {skipped} optional components skipped")
 
-    if success < total:
-        print("\n⚠️  Some links were skipped. Check the output above.")
+    if errors:
+        print(f"\n❌ Workspace setup encountered {errors} error(s). Check the output above.")
         sys.exit(1)
 
     print("\n✅ Workspace setup complete!")
@@ -193,4 +204,3 @@ Examples:
 
 if __name__ == "__main__":
     main()
-

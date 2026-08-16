@@ -61,15 +61,26 @@ Wi-compass/
 - **Storage**: ~100GB free space (for datasets, models, and experiment logs)
 
 ## Quick Start
+
+### 1. Clone the Artifact Source
+
+Clone the repository instead of using GitHub's ZIP download so that the PointNet++ submodule is available:
+
+```bash
+git clone --recurse-submodules https://github.com/MobiCom26AE/WiCompass.git
+cd WiCompass
+git submodule update --init --recursive
+```
+
 ### Installation
 
-#### 1. Create Conda Environment
+#### 2. Create Conda Environment
 ```bash
 conda create -n wicompass python=3.11 -y
 conda activate wicompass
 ```
 
-#### 2. Install Core Dependencies
+#### 3. Install Core Dependencies
 ```bash
 # Install chumpy first (required by human_body_prior)
 pip install --no-build-isolation chumpy
@@ -81,7 +92,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-#### 3. Install PointNet++ for mmWave Pose Estimation
+#### 4. Install PointNet++ for mmWave Pose Estimation
 ```bash
 # Initialize and update submodules
 git submodule update --init --recursive
@@ -166,15 +177,26 @@ python tools/setup_workspace.py --workspace ~/wicompass_workspace
 
 #### Manual Download
 
-You can also download the `.tar.gz` archives directly from Zenodo, Google Drive, or Baidu Netdisk. The workspace archives are preserved on Zenodo, and all three sources contain the same files.
+You can also download the `.tar.gz` archives directly from Zenodo, Google Drive, or Baidu Netdisk. The versioned workspace data/model archive is preserved on Zenodo, and all three sources contain the same files.
 
-- Zenodo link: https://zenodo.org/records/20907837
+- Permanent Zenodo archive: [https://zenodo.org/records/20907837](https://zenodo.org/records/20907837)
 - Google Drive link: https://drive.google.com/drive/folders/1GDgcJ-6fq4TW-AmuZPPa-i_UvshAEg79?usp=sharing
 - Baidu Netdisk link for users in mainland China: https://pan.baidu.com/s/1cy5-yM54qu6ecGV0US3QBQ?pwd=xqry
 - Download the archives you need, extract them into one directory, then run:
 ```bash
 python tools/setup_workspace.py --workspace /path/to/wicompass_workspace
 ```
+
+#### Maintainers: Publish a Source Snapshot to Zenodo
+
+To keep the permanent archive self-contained, publish the source code as one additional Zenodo file whenever a release is updated. After committing the release and initializing submodules, build the archive from a clean checkout:
+
+```bash
+git submodule update --init --recursive
+python tools/build_zenodo_source_archive.py
+```
+
+This creates `dist/WiCompass-source-<commit>.tar.gz`. Upload that single file to a **new version** of the Zenodo record; it includes the exact repository commit, all submodule sources, and `SOURCE_ARCHIVE_MANIFEST.json`. Keep the existing dataset/model workspace archives unchanged.
 
 This creates the following structure:
 
@@ -207,7 +229,23 @@ Before running the Jupyter notebooks, make sure the notebook kernel uses this re
 python -m ipykernel install --user --name wicompass --display-name WiCompass
 ```
 
-Then select the `WiCompass` kernel in Jupyter, or pass `--ExecutePreprocessor.kernel_name=wicompass` when using `jupyter nbconvert --execute`. Using the system/default `python3` kernel can miss dependencies such as `h5py` even when the `wicompass` conda environment is correctly installed.
+The notebooks use paths relative to their experiment directory. Start Jupyter from that directory, select the `WiCompass` kernel, and open the notebook. For example:
+
+```bash
+cd experiments/vqvae_microbenchmark
+python -m jupyter lab vqvae_performance.ipynb
+```
+
+For a non-interactive run of the same notebook:
+
+```bash
+cd experiments/vqvae_microbenchmark
+python -m jupyter nbconvert --to notebook --execute vqvae_performance.ipynb \
+    --ExecutePreprocessor.kernel_name=wicompass \
+    --output vqvae_performance.executed.ipynb
+```
+
+Using the system/default `python3` kernel can miss dependencies such as `h5py` even when the `wicompass` conda environment is correctly installed.
 
 
 | Figure | Section |
@@ -224,12 +262,19 @@ See the code in `experiments/vqvae_microbenchmark`. All the experiment results a
 
 You can directly visualize the experiment results of VQ-VAE models with different parameters by running `vqvae_performance.ipynb`.
 
-[Optional] If you want to re-calculate all the results from the model weights, the scripts are also provided:
+[Optional] To re-calculate the results, download and link the `wicompass_logs` component. `batch_evaluate_models.py` additionally needs the `mmbody` component:
 
 ```bash
-cd experiments/vqvae_microbenchmark
-python recover_training_results.py
-python batch_evaluate_models.py
+python tools/download_workspace.py --workspace ~/wicompass_workspace \
+    --components wicompass_logs mmbody
+python tools/setup_workspace.py --workspace ~/wicompass_workspace
+```
+
+Then run the scripts from the repository root (they are also safe to invoke from the experiment directory):
+
+```bash
+python experiments/vqvae_microbenchmark/recover_training_results.py
+python experiments/vqvae_microbenchmark/batch_evaluate_models.py
 ```
 
 [Optional] If you want to re-train all the models, please refer to `src/wicompass/train/train_vqvae.py`. It will load the config in `src/wicompass/configs` and load the (processed) AMASS datasets.
@@ -382,9 +427,9 @@ python src/wicompass/token_space_sampling/convert_sampled_tokens_to_poses.py \
 
 Our provided converted poses are stored in `logs/wicompass/sampled_poses`. If you want to use our provided tokens, skip this step.
 
-3. [Optional] Data Simulation. We employed RF-Genesis (SENSYS'23) to generate mmWave signals from the sampled poses. You can refer to its official repo for installation instructions or use our provided simulation results, stored in `datasets/simulation_datasets`. If you want to use our provided results, skip this step.
+3. [Optional] Data Simulation. We employed RF-Genesis (SENSYS'23) to generate mmWave signals from the sampled poses. You can refer to its official repo for installation instructions or use our provided simulation results, stored in `datasets/simulation_datasets`. RF-Genesis is needed only to regenerate those raw simulated signals; it is not required to train or evaluate with the provided `simulation_datasets` component.
 
-4. [Optional] Train Pose Estimation Models. Run the training scripts in `experiments/simulation_scaling/`:
+4. [Optional] Train Pose Estimation Models. After downloading and linking `simulation_datasets`, run the training scripts below. They start a local Ray runtime automatically, so do not run `ray start` first. Each job requires one CUDA GPU. To use an existing Ray cluster instead, pass `--ray-address auto` (or its explicit address).
 
 ```bash
 # Train on all simulation datasets

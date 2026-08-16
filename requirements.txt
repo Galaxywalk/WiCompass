@@ -51,6 +51,7 @@ pillow>=10.0.0
 # Jupyter Notebook Support
 # =======================
 ipykernel>=7.0.0
+jupyterlab>=4.0.0
 
 # =======================
 # Utilities

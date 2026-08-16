@@ -570,15 +570,44 @@ class WiCompassSimulationDataset(BaseJointsDataset):
 
 # --- 3. Config Management ---
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_DATASET_CONFIG = Path(__file__).resolve().parent.parent / "configs" / "datasets.json"
+
+
+def _resolve_dataset_paths(configs: dict, base_dir: Path) -> dict:
+    """Make relative dataset paths independent of the caller's working directory."""
+    for dataset_group in configs.values():
+        if not isinstance(dataset_group, list):
+            continue
+        for dataset_config in dataset_group:
+            if not isinstance(dataset_config, dict) or not dataset_config.get('path'):
+                continue
+
+            dataset_path = Path(dataset_config['path']).expanduser()
+            if not dataset_path.is_absolute():
+                dataset_config['path'] = str((base_dir / dataset_path).resolve())
+
+    return configs
+
+
 def load_dataset_configs(config_path: str = None) -> dict:
-    """Load dataset config from JSON file."""
+    """Load dataset config from JSON file and resolve its dataset locations.
+
+    Paths in the bundled ``datasets.json`` are relative to the repository root,
+    so commands work both from the repository root and from an experiment
+    subdirectory.  For a user-supplied config, relative paths are interpreted
+    relative to that config file.
+    """
     if config_path is None:
-        # Default: src/wicompass/configs/datasets.json
-        config_path = Path(__file__).parent.parent / "configs" / "datasets.json"
+        config_file = DEFAULT_DATASET_CONFIG
+        base_dir = PROJECT_ROOT
+    else:
+        config_file = Path(config_path).expanduser().resolve()
+        base_dir = PROJECT_ROOT if config_file == DEFAULT_DATASET_CONFIG else config_file.parent
     
     try:
-        with open(config_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+        with open(config_file, 'r', encoding='utf-8') as f:
+            return _resolve_dataset_paths(json.load(f), base_dir)
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"[WARN] Config load failed: {e}")
         return {"amass_datasets": [], "mmbody_datasets": [], "mmfi_datasets": [], "wicompass_datasets": []}
@@ -626,12 +655,15 @@ def create_dataset(dataset_configs: list[dict], num_joints: int, device: str,
     if use_cache:
         print(f"[INFO] Cache: {cache_dir or 'per-dataset .cache/'}")
     
+    attempted_paths = []
     for i, config in enumerate(dataset_configs):
         dtype, name, path = config.get('type'), config.get('name'), config.get('path')
         if not all([dtype, name, path]) or dtype not in DATASET_REGISTRY:
+            attempted_paths.append(f"{name or '<unnamed>'} ({dtype or '<unknown>'}): invalid dataset configuration")
             continue
             
         print(f"-> {name} ({dtype})")
+        attempted_paths.append(f"{name} ({dtype}): {path}")
         kwargs = config.get('params', {})
         kwargs['use_cache'] = use_cache
         if cache_dir:
@@ -649,7 +681,13 @@ def create_dataset(dataset_configs: list[dict], num_joints: int, device: str,
             print(f"[ERROR] {name}: {e}")
 
     if not datasets:
-        raise RuntimeError("No valid datasets loaded.")
+        checked = "\n  - ".join(attempted_paths) if attempted_paths else "<no datasets selected>"
+        raise RuntimeError(
+            "No valid datasets loaded. Checked:\n"
+            f"  - {checked}\n"
+            "Verify the required workspace component is present and run "
+            "`python tools/setup_workspace.py --workspace /path/to/wicompass_workspace`."
+        )
 
     combined = ConcatDataset(datasets)
     print(f"\n--- Summary: {len(combined):,} total samples ---")
