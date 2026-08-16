@@ -1,6 +1,12 @@
 # README
 
-This repo is the official implementation of the MobiCom '26 paper "WiCompass: Oracle-driven Data Scaling for mmWave Human Pose Estimation", which proposes a highly efficient data collection framework for mmWave human pose estimation.
+This repo is the official implementation of the MobiCom '26 paper "WiCompass: Oracle-driven Data Scaling for mmWave Human Pose Estimation", which proposes a highly efficient data collection framework for mmWave human pose estimation. [Project page](https://galaxywalk.github.io/project/wicompass/)
+
+**Highlight:** At matched data budgets, WiCompass reduces OOD MPJPE by roughly 25–30 mm compared with conventional data collection. By achieving broader coverage with roughly one-eighth as many samples, it suggests the potential to reduce data-collection effort by up to 8×.
+
+## News
+
+- **[2026-07]** Meet [Wave2Body](https://galaxywalk.github.io/project/wave2body/), our new radar-to-body token translation framework for mmWave human pose estimation. Its clean, modular design delivers stronger cross-domain generalization with up to 31× fewer training FLOPs and 89.81× fewer inference FLOPs—making it easy to reproduce, extend, and adapt to your own dataset. Give it a try!
 
 ## Quick Video
 
